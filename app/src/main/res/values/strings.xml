@@ -6,4 +6,11 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+    <string name="nav_drawer_weather">Weather</string>
+    <string name="nav_drawer_my_places">My Places</string>
+    <string name="nav_drawer_maps">Maps</string>
+    <string name="nav_drawer_profile">Profile</string>
+    <string name="nav_drawer_logout">Log Out</string>
+    <string name="nav_drawer_option">Account actions</string>
 </resources>

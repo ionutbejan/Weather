@@ -4,31 +4,32 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single"
-        android:orderInCategory="1">
+        android:orderInCategory="0">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_weather"
+            android:icon="@drawable/ic_nav_weather"
+            android:title="@string/nav_drawer_weather" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_maps"
+            android:icon="@drawable/ic_nav_maps"
+            android:title="@string/nav_drawer_maps" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_my_places"
+            android:icon="@drawable/ic_nav_my_places"
+            android:title="@string/nav_drawer_my_places" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_nav_profile"
+            android:title="@string/nav_drawer_profile" />
     </group>
 
-    <item android:title="Account actions">
+    <item android:title="@string/nav_drawer_option"
+        android:orderInCategory="1">
         <menu>
             <item
                 android:id="@+id/nav_logout"
-                android:icon="@android:drawable/button_onoff_indicator_off"
-                android:title="Share" />
+                android:icon="@drawable/ic_nav_logout"
+                android:title="@string/nav_drawer_logout" />
         </menu>
     </item>
 
