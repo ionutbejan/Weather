@@ -1,6 +1,7 @@
 package com.example.iobejan.weather.repository;
 
 import android.arch.lifecycle.LiveData;
+import android.support.annotation.NonNull;
 
 import com.example.iobejan.weather.database.DAOs.UserDao;
 import com.example.iobejan.weather.datamodel.User;

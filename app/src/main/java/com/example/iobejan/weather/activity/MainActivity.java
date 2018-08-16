@@ -1,9 +1,11 @@
 package com.example.iobejan.weather.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,13 +17,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.iobejan.weather.R;
+import com.example.iobejan.weather.fragment.UserProfileFragment;
+
+import dagger.android.AndroidInjection;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+    private final static String TAG = MainActivity.class.getSimpleName();
+    private static final String UID_KEY = "uid";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //AndroidInjection.inject(this);
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -77,7 +85,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        Fragment fragment = null;
         switch (id){
             case R.id.nav_weather:
                 break;
@@ -89,10 +97,19 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_profile:
+                fragment = new UserProfileFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString(UID_KEY, "1");
+                fragment.setArguments(bundle);
                 break;
 
             case R.id.nav_logout:
                 break;
+        }
+
+        if (fragment != null){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, fragment).commit();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

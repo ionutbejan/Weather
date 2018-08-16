@@ -7,6 +7,8 @@ import android.arch.persistence.room.Query;
 
 import com.example.iobejan.weather.datamodel.User;
 
+import dagger.Provides;
+
 import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 
 @Dao
@@ -14,6 +16,10 @@ public interface UserDao {
     @Insert(onConflict = REPLACE)
     void save(User user);
 
+    /**
+     * @param userId
+     * @return User associated with this id
+     */
     @Query("Select * FROM user WHERE id = :userId")
     LiveData<User> load(String userId);
 }

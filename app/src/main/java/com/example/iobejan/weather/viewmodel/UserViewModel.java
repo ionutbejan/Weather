@@ -2,20 +2,21 @@ package com.example.iobejan.weather.viewmodel;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
-
 import com.example.iobejan.weather.datamodel.User;
 import com.example.iobejan.weather.repository.UserRepository;
 
 import javax.inject.Inject;
 
 
-public class UserProfileViewModel extends ViewModel {
+public class UserViewModel extends ViewModel {
+    private final static String TAG = UserViewModel.class.getSimpleName();
+
     private String userId;
     private LiveData<User> user;
     private UserRepository userRepository;
 
     @Inject
-    public UserProfileViewModel(UserRepository userRepository){
+    public UserViewModel(UserRepository userRepository){
         this.userRepository = userRepository;
     }
 
