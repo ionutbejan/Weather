@@ -4,6 +4,11 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -11,6 +16,7 @@ import javax.inject.Provider;
 import javax.inject.Singleton;
 
 import dagger.Binds;
+import dagger.MapKey;
 import dagger.Module;
 import dagger.multibindings.IntoMap;
 
@@ -55,5 +61,13 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
 
         @Binds
         abstract ViewModelProvider.Factory bindViewModelFactory(ViewModelFactory viewModelFactory);
+    }
+
+    @Documented
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    @MapKey
+    public @interface ViewModelKey {
+        Class<? extends ViewModel> value();
     }
 }

@@ -18,8 +18,6 @@ import com.example.iobejan.weather.datamodel.User;
 import com.example.iobejan.weather.viewmodel.UserViewModel;
 import com.example.iobejan.weather.viewmodel.ViewModelFactory;
 
-import java.lang.annotation.Annotation;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -37,6 +35,7 @@ public class UserProfileFragment extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         String userId = getArguments().getString(UID_KEY);
+
 
         UserViewModel viewModel = ViewModelProviders.of(this, this.viewModelFactory).get(UserViewModel.class);
 
