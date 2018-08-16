@@ -7,8 +7,6 @@ import android.arch.persistence.room.Query;
 
 import com.example.iobejan.weather.datamodel.User;
 
-import dagger.Provides;
-
 import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 
 @Dao

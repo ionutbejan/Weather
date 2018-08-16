@@ -1,6 +1,5 @@
 package com.example.iobejan.weather.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -22,15 +21,16 @@ import com.example.iobejan.weather.fragment.UserProfileFragment;
 import dagger.android.AndroidInjection;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
     private final static String TAG = MainActivity.class.getSimpleName();
     private static final String UID_KEY = "uid";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //AndroidInjection.inject(this);
         setContentView(R.layout.activity_main);
+
+        AndroidInjection.inject(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

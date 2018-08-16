@@ -4,70 +4,22 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.util.Map;
+import com.example.iobejan.weather.repository.UserRepository;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 import javax.inject.Singleton;
 
-import dagger.Binds;
-import dagger.MapKey;
-import dagger.Module;
-import dagger.multibindings.IntoMap;
-
 @Singleton
-public class ViewModelFactory implements ViewModelProvider.Factory {
-    private final Map<Class<? extends ViewModel>, Provider<ViewModel>> creators;
+public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+    private UserRepository userRepository;
 
     @Inject
-    public ViewModelFactory(Map<Class<? extends ViewModel>, Provider<ViewModel>> creators) {
-        this.creators = creators;
+    public ViewModelFactory(@NonNull UserRepository userRepository){
+        this.userRepository = userRepository;
     }
-
     @NonNull
-    @SuppressWarnings("unchecked")
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        Provider<? extends ViewModel> creator = creators.get(modelClass);
-        if (creator == null) {
-            for (Map.Entry<Class<? extends ViewModel>, Provider<ViewModel>> entry : creators.entrySet()) {
-                if (modelClass.isAssignableFrom(entry.getKey())) {
-                    creator = entry.getValue();
-                    break;
-                }
-            }
-        }
-        if (creator == null) {
-            throw new IllegalArgumentException("unknown model class " + modelClass);
-        }
-        try {
-            return (T) creator.get();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Module
-    abstract class ViewModelFactoryModule {
-        @Binds
-        @IntoMap
-        @ViewModelKey(UserViewModel.class)
-        abstract ViewModel bindUserViewModel(UserViewModel userViewModel);
-
-        @Binds
-        abstract ViewModelProvider.Factory bindViewModelFactory(ViewModelFactory viewModelFactory);
-    }
-
-    @Documented
-    @Target(ElementType.METHOD)
-    @Retention(RetentionPolicy.RUNTIME)
-    @MapKey
-    public @interface ViewModelKey {
-        Class<? extends ViewModel> value();
+        return (T) new UserViewModel(userRepository);
     }
 }

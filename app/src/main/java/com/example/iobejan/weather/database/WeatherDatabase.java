@@ -8,10 +8,6 @@ import com.example.iobejan.weather.database.DAOs.UserDao;
 import com.example.iobejan.weather.datamodel.User;
 
 @android.arch.persistence.room.Database(entities = {User.class}, version = 1)
-public abstract class Database extends RoomDatabase {
+public abstract class WeatherDatabase extends RoomDatabase {
     public abstract UserDao userDao();
-
-    public static Database getInstance(Context context){
-        return Room.databaseBuilder(context, Database.class, "database").build();
-    }
 }

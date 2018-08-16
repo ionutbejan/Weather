@@ -2,11 +2,12 @@ package com.example.iobejan.weather.viewmodel;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
+import android.support.annotation.NonNull;
+
+import com.example.iobejan.weather.database.DAOs.UserDao;
 import com.example.iobejan.weather.datamodel.User;
 import com.example.iobejan.weather.repository.UserRepository;
-
 import javax.inject.Inject;
-
 
 public class UserViewModel extends ViewModel {
     private final static String TAG = UserViewModel.class.getSimpleName();
@@ -17,7 +18,13 @@ public class UserViewModel extends ViewModel {
 
     @Inject
     public UserViewModel(UserRepository userRepository){
-        this.userRepository = userRepository;
+        if (this.userRepository != null){
+            return;
+        }
+
+        if (userRepository != null){
+            this.userRepository = userRepository;
+        }
     }
 
     public void init(String userId){
