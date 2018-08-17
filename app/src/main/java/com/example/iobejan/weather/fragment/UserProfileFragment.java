@@ -1,63 +1,59 @@
 package com.example.iobejan.weather.fragment;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.iobejan.weather.z_base.BaseFragment;
 import com.example.iobejan.weather.R;
-import com.example.iobejan.weather.database.DAOs.UserDao;
 import com.example.iobejan.weather.datamodel.User;
-import com.example.iobejan.weather.repository.UserRepository;
 import com.example.iobejan.weather.viewmodel.UserViewModel;
 import com.example.iobejan.weather.viewmodel.ViewModelFactory;
 
-import java.util.concurrent.Executor;
+import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
-public class UserProfileFragment extends Fragment{
+public class UserProfileFragment extends BaseFragment {
     private static final String UID_KEY = "uid";
     private final static String TAG = UserProfileFragment.class.getSimpleName();
+
+    @Inject
+    ViewModelFactory viewModelFactory;
 
     @BindView(R.id.tv_username) TextView tv_username;
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //AndroidSupportInjection.inject(this);
         String userId = getArguments().getString(UID_KEY);
 
-        final UserViewModel viewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+        final UserViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(UserViewModel.class);
 
         viewModel.init(userId);
-        viewModel.getUser().observe(UserProfileFragment.this, new Observer<User>() {
+        viewModel.getUser().observe(this, new Observer<User>() {
             @Override
-            public void onChanged(@Nullable User user) {
-                assert user != null;
-                updateUI(user);
+            public void onChanged(User user) {
+                if (user != null)
+                    tv_username.setText(user.getNickname());
             }
         });
     }
 
-    private void updateUI(@NonNull User user){
-        tv_username.setText(user.getName());
+    @Override
+    protected int getFragmentLayout() {
+        return R.layout.user_profile_fragment;
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.user_profile_fragment, container, false);
-        ButterKnife.bind(this, view);
-        return view;
+    protected int getFragmentTitle() {
+        return R.string.nav_drawer_profile;
+    }
+
+    @Override
+    protected boolean isToolbarTransparent() {
+        return false;
     }
 }

@@ -10,17 +10,18 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.iobejan.weather.R;
+import com.example.iobejan.weather.fragment.MapsFragment;
+import com.example.iobejan.weather.fragment.MyPlacesFragment;
 import com.example.iobejan.weather.fragment.UserProfileFragment;
+import com.example.iobejan.weather.fragment.WeatherFragment;
+import com.example.iobejan.weather.z_base.BaseCompatActivity;
 
-import dagger.android.AndroidInjection;
-
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
     private final static String TAG = MainActivity.class.getSimpleName();
     private static final String UID_KEY = "uid";
@@ -28,13 +29,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        AndroidInjection.inject(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        toolbar.setSelected(true);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(this);
 
@@ -46,6 +45,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    protected int getActivityLayout() {
+        return R.layout.activity_main;
     }
 
     @Override
@@ -88,12 +92,15 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
         switch (id){
             case R.id.nav_weather:
+                fragment = new WeatherFragment();
                 break;
 
             case R.id.nav_maps:
+                fragment = new MapsFragment();
                 break;
 
             case R.id.nav_my_places:
+                fragment = new MyPlacesFragment();
                 break;
 
             case R.id.nav_profile:

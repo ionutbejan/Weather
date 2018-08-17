@@ -9,6 +9,7 @@ public class User {
     private int id;
     private String name;
     private String email;
+    private String nickname;
 
     public String getName() {
         return name;
@@ -32,5 +33,13 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

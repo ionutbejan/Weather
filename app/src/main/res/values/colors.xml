@@ -3,4 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="blue_clear_sky">#87CEFA</color>
+    <color name="blue_clear_sky_shadowed">#5e90af</color>
 </resources>
