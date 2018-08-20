@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.iobejan.weather.R;
+
 import butterknife.ButterKnife;
 import dagger.android.support.AndroidSupportInjection;
 
@@ -24,8 +26,8 @@ public abstract class BaseFragment extends Fragment {
         activity = ((AppCompatActivity) context);
         activity.setTitle(getFragmentTitle());
 
-        if (isToolbarTransparent() && activity.getSupportActionBar() != null)
-            activity.getSupportActionBar().setBackgroundDrawable(null);
+        if (activity.getSupportActionBar() != null)
+            activity.findViewById(R.id.toolbar).setSelected(isToolbarTransparent());
     }
 
     @Override
